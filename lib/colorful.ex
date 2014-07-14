@@ -1,0 +1,2 @@
+defmodule Colorful do
+end
