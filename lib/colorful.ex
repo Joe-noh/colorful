@@ -5,7 +5,7 @@ defmodule Colorful do
     end
   end
 
-  defmacro string(target, decorators \\ :reset) do
+  defmacro string(target, decorators \\ "reset") do
     quote do
       unquote(
         List.foldl split_decorators(decorators), "", fn(deco, acc) ->
@@ -15,7 +15,7 @@ defmodule Colorful do
     end
   end
 
-  defmacro puts(target, decorators \\ :reset) do
+  defmacro puts(target, decorators \\ "reset") do
     quote do
       IO.puts(unquote(
         List.foldl split_decorators(decorators), "", fn(deco, acc) ->
@@ -25,7 +25,7 @@ defmodule Colorful do
     end
   end
 
-  defmacro inspects(target, decorators \\ :reset) do
+  defmacro inspects(target, decorators \\ "reset") do
     quote do
       IO.puts(unquote(
         List.foldl split_decorators(decorators), "", fn(deco, acc) ->
@@ -35,11 +35,7 @@ defmodule Colorful do
     end
   end
 
-  defp split_decorators(decorators) when is_atom(decorators) do
-    Atom.to_string(decorators) |> String.split("_")
-  end
-
   defp split_decorators(decorators) when is_binary(decorators) do
-    decorators |> String.split("_")
+    decorators |> String.split(" ", trim: true)
   end
 end
