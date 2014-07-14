@@ -3,9 +3,17 @@ defmodule Colorful.Mixfile do
 
   def project do
     [app: :colorful,
-     version: "0.0.1",
+     version: "0.1.0",
      elixir: "~> 0.14.3",
-     deps: deps]
+     description: "Wrapper for IO.ANSI modules",
+     deps: [],
+     package: [
+       files: ["lib", "mix.exs", "README.md", "LICENSE.txt"],
+       contributors: ["Joe Honzawa"],
+       licenses: ["MIT"],
+       links: [github: "https://github.com/Joe-noh/colorful"]
+     ]
+   ]
   end
 
   # Configuration for the OTP application
@@ -13,18 +21,5 @@ defmodule Colorful.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [applications: []]
-  end
-
-  # Dependencies can be hex.pm packages:
-  #
-  #   {:mydep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1"}
-  #
-  # Type `mix help deps` for more examples and options
-  defp deps do
-    []
   end
 end
