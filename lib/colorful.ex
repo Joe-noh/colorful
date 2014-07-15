@@ -54,4 +54,14 @@ defmodule Colorful do
   defp split_decorators(decorators) when is_binary(decorators) do
     decorators |> String.split(" ", trim: true)
   end
+
+  @doc false
+  defp split_decorators(decorators) when is_list(decorators) do
+    decorators |> Enum.map fn (deco) ->
+      cond do
+        is_atom(deco) -> Atom.to_string(deco)
+        true  -> deco
+      end
+    end
+  end
 end

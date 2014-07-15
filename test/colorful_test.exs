@@ -23,4 +23,9 @@ defmodule ColorfulTest do
   test :default_decorator do
     assert C.string("hello") == "\e[0mhello\e[0m"
   end
+
+  test :adapt_a_list do
+    assert C.string("hello", ["underline", "red"]) == "\e[4m\e[31mhello\e[0m"
+    assert C.string("hello", [:underline,  "red"]) == "\e[4m\e[31mhello\e[0m"
+  end
 end
