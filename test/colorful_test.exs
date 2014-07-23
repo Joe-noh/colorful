@@ -16,8 +16,24 @@ defmodule ColorfulTest do
     assert capture_io(fn -> C.puts("hello", "red") end) == "\e[31mhello\e[0m\n"
   end
 
+  test :puts_to_device do
+    assert capture_io(:stderr, fn ->
+      C.puts(:stderr, "hello", "red")
+    end) == "\e[31mhello\e[0m\n"
+
+    assert capture_io(:stderr, fn -> C.puts("hello", "red") end) == ""
+  end
+
   test :inspects do
     assert capture_io(fn -> C.inspects([1, 2], "red") end) == "\e[31m[1, 2]\e[0m\n"
+  end
+
+  test :inspects_to_device do
+    assert capture_io(:stderr, fn ->
+      C.inspects(:stderr, [1, 2], "red")
+    end) == "\e[31m[1, 2]\e[0m\n"
+
+    assert capture_io(:stderr, fn -> C.inspects([1, 2], "red") end) == ""
   end
 
   test :default_decorator do
