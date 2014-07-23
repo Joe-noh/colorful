@@ -15,4 +15,6 @@ Colorful.string("hello")   #=> "\e[0m\e[1mhello\e[0m"
 
 Colorful.puts("hello", "red")
 Colorful.inspects([1, 2], "blue white_background")
+
+Colorful.puts(:stderr, "hello", "red")
 ```

@@ -1,13 +1,13 @@
 defmodule Colorful do
   @moduledoc """
-    Wrapper for IO.ANSI module.
+  Wrapper for IO.ANSI module.
 
-        use Colorful
+      use Colorful
 
-        Colorful.string("hello", "red white_background bright")
+      Colorful.string("hello", "red white_background bright")
 
-        Colorful.puts("hello", "red")
-        Colorful.inspects(:hello, "underline")
+      Colorful.puts("hello", "red")
+      Colorful.inspects(:hello, "underline")
   """
 
   @doc false
@@ -31,22 +31,26 @@ defmodule Colorful do
   @doc "Output colored string to stdout"
   defmacro puts(target, decorators \\ "reset") do
     quote do
-      IO.puts(unquote(
-        List.foldl split_decorators(decorators), "", fn(deco, acc) ->
-          quote do: unquote(acc) <> IO.ANSI.unquote(String.to_atom deco)
-        end
-      ) <> unquote(target) <> IO.ANSI.reset)
+      Colorful.puts(:erlang.group_leader, unquote(target), unquote(decorators))
+    end
+  end
+
+  defmacro puts(device, target, decorators) do
+    quote do
+      IO.puts(unquote(device), Colorful.convert_to_ansi(unquote decorators) <> unquote(target) <> IO.ANSI.reset)
     end
   end
 
   @doc "Note that inspects, not inspect"
   defmacro inspects(target, decorators \\ "reset") do
     quote do
-      IO.puts(unquote(
-        List.foldl split_decorators(decorators), "", fn(deco, acc) ->
-          quote do: unquote(acc) <> IO.ANSI.unquote(String.to_atom deco)
-        end
-      ) <> (inspect unquote(target)) <> IO.ANSI.reset)
+      Colorful.inspects(:erlang.group_leader, unquote(target), unquote(decorators))
+    end
+  end
+
+  defmacro inspects(device, target, decorators) do
+    quote do
+      IO.puts(unquote(device), Colorful.convert_to_ansi(unquote decorators) <> inspect(unquote target) <> IO.ANSI.reset)
     end
   end
 
@@ -60,8 +64,14 @@ defmodule Colorful do
     decorators |> Enum.map fn (deco) ->
       cond do
         is_atom(deco) -> Atom.to_string(deco)
-        true  -> deco
+        true -> deco
       end
+    end
+  end
+
+  defmacro convert_to_ansi(decorators) do
+    List.foldl split_decorators(decorators), "", fn(deco, acc) ->
+      quote do: unquote(acc) <> IO.ANSI.unquote(String.to_atom deco)
     end
   end
 end
