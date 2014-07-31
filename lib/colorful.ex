@@ -10,6 +10,8 @@ defmodule Colorful do
       Colorful.inspects(:hello, "underline")
   """
 
+  import Kernel, except: [inspect: 1]
+
   @doc false
   defmacro __using__(_) do
     quote do
@@ -41,16 +43,17 @@ defmodule Colorful do
     end
   end
 
-  @doc "Note that inspects, not inspect"
-  defmacro inspects(target, decorators \\ "reset") do
+  @doc "Inspect colored object"
+  defmacro inspect(target, decorators \\ "reset") do
     quote do
-      Colorful.inspects(:erlang.group_leader, unquote(target), unquote(decorators))
+      Colorful.inspect(:erlang.group_leader, unquote(target), unquote(decorators))
     end
   end
 
-  defmacro inspects(device, target, decorators) do
+  defmacro inspect(device, target, decorators) do
     quote do
       IO.puts(unquote(device), Colorful.convert_to_ansi(unquote decorators) <> inspect(unquote target) <> IO.ANSI.reset)
+      unquote(target)
     end
   end
 
