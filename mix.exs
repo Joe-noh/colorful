@@ -3,16 +3,11 @@ defmodule Colorful.Mixfile do
 
   def project do
     [app: :colorful,
-     version: "0.4.0",
-     elixir: ">= 0.14.3",
+     version: "0.4.1",
+     elixir: ">= 1.0.0",
      description: "Wrapper for IO.ANSI modules",
      deps: [],
-     package: [
-       files: ["lib", "mix.exs", "README.md", "LICENSE.txt"],
-       contributors: ["Joe Honzawa"],
-       licenses: ["MIT"],
-       links: [github: "https://github.com/Joe-noh/colorful"]
-     ]
+     package: package
    ]
   end
 
@@ -20,6 +15,15 @@ defmodule Colorful.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: []]
+    [applications: [:logger]]
+  end
+
+  defp package do
+    [
+      files: ["lib", "mix.exs", "README.md", "LICENSE.txt"],
+      contributors: ["Joe Honzawa"],
+      licenses: ["MIT"],
+      links: %{"Github" => "https://github.com/Joe-noh/colorful"}
+    ]
   end
 end
