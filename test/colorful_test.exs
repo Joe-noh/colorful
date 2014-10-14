@@ -13,7 +13,7 @@ defmodule ColorfulTest do
   end
 
   test :puts do
-    assert capture_io(fn -> C.puts("hello", "red") end) == "\e[31mhello\e[0m\n"
+    assert capture_io(fn -> C.puts("hello", :red) end) == "\e[31mhello\e[0m\n"
   end
 
   test :puts_to_device do
@@ -47,5 +47,15 @@ defmodule ColorfulTest do
   test :adapt_a_list do
     assert C.string("hello", ["underline", "red"]) == "\e[4m\e[31mhello\e[0m"
     assert C.string("hello", [:underline,  "red"]) == "\e[4m\e[31mhello\e[0m"
+  end
+
+  test :raise_argument_error do
+    assert_raise ArgumentError, fn ->
+      C.string("hello", %{})
+    end
+
+    assert_raise ArgumentError, fn ->
+      C.string("hello", [:red, %{}])
+    end
   end
 end
