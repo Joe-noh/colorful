@@ -10,6 +10,8 @@ defmodule Colorful do
       Colorful.inspects(:hello, "underline")
   """
 
+  @type decorators :: String.t | [String.t | atom]
+
   import Kernel, except: [inspect: 1]
 
   @doc false
@@ -20,6 +22,7 @@ defmodule Colorful do
   end
 
   @doc "Make colored string"
+  @spec string(String.t, decorators) :: String.t
   defmacro string(target, decorators \\ "reset") do
     quote do
       unquote(
@@ -30,13 +33,19 @@ defmodule Colorful do
     end
   end
 
+  @doc "dummy"
+  @spec d(String.t) :: String.t
+
   @doc "Output colored string to stdout"
+  @spec puts(String.t, decorators) :: :ok
   defmacro puts(target, decorators \\ "reset") do
     quote do
       Colorful.puts(:erlang.group_leader, unquote(target), unquote(decorators))
     end
   end
 
+
+  @spec puts(atom | pid, String.t, decorators) :: :ok
   defmacro puts(device, target, decorators) do
     quote do
       IO.puts(unquote(device), Colorful.convert_to_ansi(unquote decorators) <> unquote(target) <> IO.ANSI.reset)
@@ -44,12 +53,14 @@ defmodule Colorful do
   end
 
   @doc "Inspect colored object"
+  @spec inspect(String.t, decorators) :: String.t
   defmacro inspect(target, decorators \\ "reset") do
     quote do
       Colorful.inspect(:erlang.group_leader, unquote(target), unquote(decorators))
     end
   end
 
+  @spec inspect(atom | pid, String.t, decorators) :: :ok
   defmacro inspect(device, target, decorators) do
     quote do
       IO.puts(unquote(device), Colorful.convert_to_ansi(unquote decorators) <> inspect(unquote target) <> IO.ANSI.reset)
@@ -72,6 +83,7 @@ defmodule Colorful do
     end
   end
 
+  @doc false
   defmacro convert_to_ansi(decorators) do
     List.foldl split_decorators(decorators), "", fn(deco, acc) ->
       quote do: unquote(acc) <> IO.ANSI.unquote(String.to_atom deco)
