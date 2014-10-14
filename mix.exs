@@ -3,7 +3,7 @@ defmodule Colorful.Mixfile do
 
   def project do
     [app: :colorful,
-     version: "0.4.1",
+     version: "0.5.0",
      elixir: ">= 1.0.0",
      description: "Wrapper for IO.ANSI modules",
      deps: [
