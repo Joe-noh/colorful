@@ -6,7 +6,10 @@ defmodule Colorful.Mixfile do
      version: "0.4.1",
      elixir: ">= 1.0.0",
      description: "Wrapper for IO.ANSI modules",
-     deps: [],
+     deps: [
+       {:earmark, "~> 0.1", only: :dev},
+       {:ex_doc,  "~> 0.6", only: :dev}
+     ],
      package: package
    ]
   end
