@@ -2,8 +2,6 @@ defmodule Colorful do
   @moduledoc """
   This module is a wrapper for IO.ANSI module.
 
-      iex> use Colorful
-
       iex> Colorful.string("hello", "red underline")
       "\e[31m\e[4mhello\e[0m"
 
@@ -138,21 +136,18 @@ defmodule Colorful do
     term
   end
 
-  @doc false
   defp to_ansi_code(decorators) when is_binary(decorators) do
     decorators
     |> String.split(" ", trim: true)
     |> to_ansi_code
   end
 
-  @doc false
   defp to_ansi_code(decorators) when is_list(decorators) do
     decorators
     |> Enum.map(& io_ansi(&1))
     |> Enum.join
   end
 
-  @doc false
   defp to_ansi_code(decorator) do
     raise ArgumentError, "Expected a binary or a list. But got #{Kernel.inspect decorator}"
   end
