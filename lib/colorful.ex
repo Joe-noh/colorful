@@ -1,13 +1,82 @@
 defmodule Colorful do
   @moduledoc """
-  Wrapper for IO.ANSI module.
+  This module is a wrapper for IO.ANSI module.
 
-      use Colorful
+      iex> use Colorful
 
-      Colorful.string("hello", "red white_background bright")
+      iex> Colorful.string("hello", "red underline")
+      "\e[31m\e[4mhello\e[0m"
 
-      Colorful.puts("hello", "red")
-      Colorful.inspects(:hello, "underline")
+      iex> Colorful.string("hello", ["red", "underline"])
+      "\e[31m\e[4mhello\e[0m"
+
+      iex> Colorful.string("hello", [:red, :underline])
+      "\e[31m\e[4mhello\e[0m"
+
+      iex> Colorful.puts("hello", "red")
+      hello   # colored
+
+      iex> Colorful.inspect(:hello, "red")
+      :hello  # colored
+      :hello  # return value, an atom
+
+  Followings are valid decorators.
+
+  - `red`
+  - `green`
+  - `blue`
+  - `cyan`
+  - `magenta`
+  - `yellow`
+  - `black`
+  - `white`
+  - `default_color`
+
+  - `red_background`
+  - `green_background`
+  - `blue_background`
+  - `cyan_background`
+  - `magenta_background`
+  - `yellow_background`
+  - `black_background`
+  - `white_background`
+  - `default_background`
+
+  - `normal`
+  - `bright`
+  - `italic`
+  - `overlined`
+  - `underline`
+  - `crossed_out`
+  - `reverse`
+  - `inverse`
+  - `conceal`
+  - `faint`
+  - `framed`
+  - `encircled`
+  - `blink_slow`
+  - `blink_rapid`
+
+  - `reset`
+  - `not_italic`
+  - `not_overlined`
+  - `no_underline`
+  - `not_framed_encircled`
+  - `blink_off`
+
+  - `primary_font`
+  - `font_1`
+  - `font_2`
+  - `font_3`
+  - `font_4`
+  - `font_5`
+  - `font_6`
+  - `font_7`
+  - `font_8`
+  - `font_9`
+
+  - `home`
+  - `clear`
   """
 
   @type decorators :: String.t | [String.t | atom]
@@ -60,8 +129,10 @@ defmodule Colorful do
   end
 
   @doc """
-  This writes colored string to stdout and return it.
+  This writes colored string to stdout.
   The string is made of first argument according to `Inspect` protocol.
+
+  This returns given first argument as it is.
   """
   @spec inspect(String.t, decorators) :: String.t
   defmacro inspect(text, decorators \\ "reset") do
