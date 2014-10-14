@@ -13,7 +13,7 @@ defmodule ColorfulTest do
   end
 
   test :puts do
-    assert capture_io(fn -> C.puts("hello", "red") end) == "\e[31mhello\e[0m\n"
+    assert capture_io(fn -> C.puts("hello", :red) end) == "\e[31mhello\e[0m\n"
   end
 
   test :puts_to_device do

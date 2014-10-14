@@ -77,7 +77,7 @@ defmodule Colorful do
   - `clear`
   """
 
-  @type decorators :: String.t | [String.t | atom]
+  @type decorators :: String.t | atom | [String.t | atom]
 
   import Kernel, except: [inspect: 1]
 
@@ -140,6 +140,10 @@ defmodule Colorful do
     decorators
     |> String.split(" ", trim: true)
     |> to_ansi_code
+  end
+
+  defp to_ansi_code(decorators) when is_atom(decorators) do
+    to_ansi_code [decorators]
   end
 
   defp to_ansi_code(decorators) when is_list(decorators) do
