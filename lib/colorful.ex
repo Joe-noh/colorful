@@ -28,13 +28,13 @@ defmodule Colorful do
   It is a string, or a list which members are string or atom.
   """
   @spec string(String.t, decorators) :: String.t
-  defmacro string(target, decorators \\ "reset") do
+  defmacro string(text, decorators \\ "reset") do
     quote do
       unquote(
         List.foldl split_decorators(decorators), "", fn(deco, acc) ->
           quote do: unquote(acc) <> IO.ANSI.unquote(String.to_atom deco)
         end
-      ) <> unquote(target) <> IO.ANSI.reset
+      ) <> unquote(text) <> IO.ANSI.reset
     end
   end
 
@@ -43,9 +43,9 @@ defmodule Colorful do
   The return value is always `:ok`.
   """
   @spec puts(String.t, decorators) :: :ok
-  defmacro puts(target, decorators \\ "reset") do
+  defmacro puts(text, decorators \\ "reset") do
     quote do
-      Colorful.puts(:erlang.group_leader, unquote(target), unquote(decorators))
+      Colorful.puts(:erlang.group_leader, unquote(text), unquote(decorators))
     end
   end
 
@@ -53,9 +53,9 @@ defmodule Colorful do
   Outputs decorated text to specified device, similar to `IO.puts/2`
   """
   @spec puts(atom | pid, String.t, decorators) :: :ok
-  defmacro puts(device, target, decorators) do
+  defmacro puts(device, text, decorators) do
     quote do
-      IO.puts(unquote(device), Colorful.convert_to_ansi(unquote decorators) <> unquote(target) <> IO.ANSI.reset)
+      IO.puts(unquote(device), Colorful.convert_to_ansi(unquote decorators) <> unquote(text) <> IO.ANSI.reset)
     end
   end
 
@@ -64,9 +64,9 @@ defmodule Colorful do
   The string is made of first argument according to `Inspect` protocol.
   """
   @spec inspect(String.t, decorators) :: String.t
-  defmacro inspect(target, decorators \\ "reset") do
+  defmacro inspect(text, decorators \\ "reset") do
     quote do
-      Colorful.inspect(:erlang.group_leader, unquote(target), unquote(decorators))
+      Colorful.inspect(:erlang.group_leader, unquote(text), unquote(decorators))
     end
   end
 
@@ -74,10 +74,10 @@ defmodule Colorful do
   Inspects decorated text to specified device.
   """
   @spec inspect(atom | pid, String.t, decorators) :: :ok
-  defmacro inspect(device, target, decorators) do
+  defmacro inspect(device, text, decorators) do
     quote do
-      IO.puts(unquote(device), Colorful.convert_to_ansi(unquote decorators) <> inspect(unquote target) <> IO.ANSI.reset)
-      unquote(target)
+      IO.puts(unquote(device), Colorful.convert_to_ansi(unquote decorators) <> inspect(unquote text) <> IO.ANSI.reset)
+      unquote(text)
     end
   end
 
