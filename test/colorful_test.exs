@@ -48,4 +48,14 @@ defmodule ColorfulTest do
     assert C.string("hello", ["underline", "red"]) == "\e[4m\e[31mhello\e[0m"
     assert C.string("hello", [:underline,  "red"]) == "\e[4m\e[31mhello\e[0m"
   end
+
+  test :raise_argument_error do
+    assert_raise ArgumentError, fn ->
+      C.string("hello", %{})
+    end
+
+    assert_raise ArgumentError, fn ->
+      C.string("hello", [:red, %{}])
+    end
+  end
 end
