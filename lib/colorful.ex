@@ -21,7 +21,12 @@ defmodule Colorful do
     end
   end
 
-  @doc "Make colored string"
+  @doc """
+  This function makes given string decorated.
+
+  The decoration is specified in the second argument.
+  It is a string, or a list which members are string or atom.
+  """
   @spec string(String.t, decorators) :: String.t
   defmacro string(target, decorators \\ "reset") do
     quote do
@@ -33,10 +38,10 @@ defmodule Colorful do
     end
   end
 
-  @doc "dummy"
-  @spec d(String.t) :: String.t
-
-  @doc "Output colored string to stdout"
+  @doc """
+  This outputs colored string to stdout as same as `IO.puts`.
+  The return value is always `:ok`.
+  """
   @spec puts(String.t, decorators) :: :ok
   defmacro puts(target, decorators \\ "reset") do
     quote do
@@ -44,7 +49,9 @@ defmodule Colorful do
     end
   end
 
-
+  @doc """
+  Outputs decorated text to specified device, similar to `IO.puts/2`
+  """
   @spec puts(atom | pid, String.t, decorators) :: :ok
   defmacro puts(device, target, decorators) do
     quote do
@@ -52,7 +59,10 @@ defmodule Colorful do
     end
   end
 
-  @doc "Inspect colored object"
+  @doc """
+  This writes colored string to stdout and return it.
+  The string is made of first argument according to `Inspect` protocol.
+  """
   @spec inspect(String.t, decorators) :: String.t
   defmacro inspect(target, decorators \\ "reset") do
     quote do
@@ -60,6 +70,9 @@ defmodule Colorful do
     end
   end
 
+  @doc """
+  Inspects decorated text to specified device.
+  """
   @spec inspect(atom | pid, String.t, decorators) :: :ok
   defmacro inspect(device, target, decorators) do
     quote do
