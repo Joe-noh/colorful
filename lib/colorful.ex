@@ -95,8 +95,8 @@ defmodule Colorful do
   It is a string, or a list which members are string or atom.
   """
   @spec string(String.t, decorators) :: String.t
-  def string(text, decorators \\ "reset") do
-    to_ansi_code(decorators) <> text <> @reset
+  def string(text, decorators \\ nil) do
+    sandwich_between_resets(to_ansi_code(decorators) <> text)
   end
 
   @doc """
@@ -104,7 +104,7 @@ defmodule Colorful do
   The return value is always `:ok`.
   """
   @spec puts(String.t, decorators) :: :ok
-  def puts(text, decorators \\ "reset") do
+  def puts(text, decorators \\ nil) do
     puts(:erlang.group_leader, text, decorators)
   end
 
@@ -113,7 +113,8 @@ defmodule Colorful do
   """
   @spec puts(atom | pid, String.t, decorators) :: :ok
   def puts(device, text, decorators) do
-    IO.puts(device, to_ansi_code(decorators) <> text <> @reset)
+    decorated = to_ansi_code(decorators) <> text
+    IO.puts(device, sandwich_between_resets(decorated))
   end
 
   @doc """
@@ -123,7 +124,7 @@ defmodule Colorful do
   This returns given first argument as it is.
   """
   @spec inspect(term, decorators) :: term
-  def inspect(term, decorators \\ "reset") do
+  def inspect(term, decorators \\ nil) do
     __MODULE__.inspect(:erlang.group_leader, term, decorators)
   end
 
@@ -132,9 +133,12 @@ defmodule Colorful do
   """
   @spec inspect(atom | pid, term, decorators) :: term
   def inspect(device, term, decorators) do
-    IO.puts(device, to_ansi_code(decorators) <> Kernel.inspect(term) <> @reset)
+    decorated = to_ansi_code(decorators) <> Kernel.inspect(term)
+    IO.puts(device, sandwich_between_resets(decorated))
     term
   end
+
+  defp to_ansi_code(nil), do: ""
 
   defp to_ansi_code(decorators) when is_binary(decorators) do
     decorators
@@ -165,5 +169,9 @@ defmodule Colorful do
 
   defp io_ansi(fn_name) do
     raise ArgumentError, "IO.ANSI.#{Kernel.inspect fn_name} is not defined."
+  end
+
+  defp sandwich_between_resets(text) do
+    @reset <> text <> @reset
   end
 end
