@@ -3,13 +3,13 @@ defmodule Colorful do
   This module is a wrapper for IO.ANSI module.
 
       iex> Colorful.string("hello", "red underline")
-      "\e[0m\e[31m\e[4mhello\e[0m"
+      "\\e[0m\\e[31m\\e[4mhello\\e[0m"
 
       iex> Colorful.string("hello", ["red", "underline"])
-      "\e[0m\e[31m\e[4mhello\e[0m"
+      "\\e[0m\\e[31m\\e[4mhello\\e[0m"
 
       iex> Colorful.string("hello", [:red, :underline])
-      "\e[0m\e[31m\e[4mhello\e[0m"
+      "\\e[0m\\e[31m\\e[4mhello\\e[0m"
 
       iex> Colorful.puts("hello", "red")
       hello   # colored
