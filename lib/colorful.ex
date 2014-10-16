@@ -122,7 +122,7 @@ defmodule Colorful do
 
   This returns given first argument as it is.
   """
-  @spec inspect(String.t, decorators) :: String.t
+  @spec inspect(term, decorators) :: term
   def inspect(term, decorators \\ "reset") do
     __MODULE__.inspect(:erlang.group_leader, term, decorators)
   end
@@ -130,7 +130,7 @@ defmodule Colorful do
   @doc """
   Inspects decorated text to specified device.
   """
-  @spec inspect(atom | pid, String.t, decorators) :: :ok
+  @spec inspect(atom | pid, term, decorators) :: term
   def inspect(device, term, decorators) do
     IO.puts(device, to_ansi_code(decorators) <> Kernel.inspect(term) <> @reset)
     term
@@ -153,7 +153,8 @@ defmodule Colorful do
   end
 
   defp to_ansi_code(decorator) do
-    raise ArgumentError, "Expected a binary or a list. But got #{Kernel.inspect decorator}"
+    raise ArgumentError,
+          "Expected a binary, an atom or a list. But got #{Kernel.inspect decorator}"
   end
 
   defp io_ansi(fn_name) when is_atom(fn_name) or is_binary(fn_name) do
