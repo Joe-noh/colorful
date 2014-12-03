@@ -10,6 +10,12 @@ defmodule ColorfulTest do
     assert C.string("hello", "  red  ")       == "\e[0m\e[31mhello\e[0m"
     assert C.string("hello", "red underline") == "\e[0m\e[31m\e[4mhello\e[0m"
     assert C.string("hello", "underline red") == "\e[0m\e[4m\e[31mhello\e[0m"
+
+    assert C.string("hello", :red) == C.string("hello", "red")
+    assert C.string("hello", :red) == C.string("hello", [:red])
+
+    assert C.string("hello", {5, 0, 0})       == "\e[0m\e[38;5;196mhello\e[0m"
+    assert C.string("hello", [:underline, {1, 5, 1}]) == "\e[0m\e[4m\e[38;5;83mhello\e[0m"
   end
 
   test :puts do

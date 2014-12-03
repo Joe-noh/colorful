@@ -77,7 +77,8 @@ defmodule Colorful do
   - `clear`
   """
 
-  @type decorators :: String.t | atom | [String.t | atom]
+  @type rgb :: {0..5, 0..5, 0..5}
+  @type decorators :: String.t | atom | rgb | [String.t | atom | rgb]
 
   import Kernel, except: [inspect: 1]
 
@@ -156,6 +157,10 @@ defmodule Colorful do
     |> Enum.join
   end
 
+  defp to_ansi_code({r, g, b}) when r in 0..5 and g in 0..5 and b in 0..5 do
+    "\e[38;5;#{16 + r*36 + 6*g + b}m"
+  end
+
   defp to_ansi_code(decorator) do
     raise ArgumentError,
           "Expected a binary, an atom or a list. But got #{Kernel.inspect decorator}"
@@ -165,6 +170,10 @@ defmodule Colorful do
     "IO.ANSI.#{fn_name}"
     |> Code.eval_string
     |> elem(0)
+  end
+
+  defp io_ansi({r, g, b}) when r in 0..5 and g in 0..5 and b in 0..5 do
+    "\e[38;5;#{16 + r*36 + 6*g + b}m"
   end
 
   defp io_ansi(fn_name) do
