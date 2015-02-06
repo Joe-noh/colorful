@@ -23,7 +23,7 @@ defmodule Colorful.Mixfile do
 
   defp package do
     [
-      files: ["lib", "mix.exs", "README.md", "LICENSE.txt"],
+      files: ["lib", "priv", "mix.exs", "README.md", "LICENSE.txt"],
       contributors: ["Joe Honzawa"],
       licenses: ["MIT"],
       links: %{"Github" => "https://github.com/Joe-noh/colorful"}
