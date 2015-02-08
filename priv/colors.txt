@@ -26,7 +26,7 @@ aureolin #fdee00 253 238 0 56.4 100 49.6
 aurometalsaurus #6e7f80 110 127 128 183.3 7.6 46.7
 awesome #ff2052 255 32 82 346.5 100 56.3
 azure #007fff 0 127 255 210.1 100 50
-azure_mist/web #f0ffff 240 255 255 180 100 97.1
+azure_mist #f0ffff 240 255 255 180 100 97.1
 baby_blue #89cff0 137 207 240 199.2 77.4 73.9
 baby_blue_eyes #a1caf1 161 202 241 209.3 74.1 78.8
 baby_pink #f4c2c2 244 194 194 0 69.4 85.9
@@ -95,8 +95,10 @@ cadmium_green #006b3c 0 107 60 153.6 100 21
 cadmium_orange #ed872d 237 135 45 28.1 84.2 55.3
 cadmium_red #e30022 227 0 34 351 100 44.5
 cadmium_yellow #fff600 255 246 0 57.9 100 50
-café au_lait #a67b5b 166 123 91 25.6 29.6 50.4
-café noir #4b3621 75 54 33 30 38.9 21.2
+cafe_au_lait #a67b5b 166 123 91 25.6 29.6 50.4
+café_au_lait #a67b5b 166 123 91 25.6 29.6 50.4
+cafe_noir #4b3621 75 54 33 30 38.9 21.2
+café_noir #4b3621 75 54 33 30 38.9 21.2
 cal_poly_pomona_green #1e4d2b 30 77 43 136.6 43.9 21
 cambridge_blue #a3c1ad 163 193 173 140 19.5 69.8
 camel #c19a6b 193 154 107 32.8 41 58.8
@@ -301,7 +303,8 @@ green_blue #1164b4 17 100 180 209.4 82.7 38.6
 green_yellow #adff2f 173 255 47 83.7 100 59.2
 grullo #a99a86 169 154 134 34.3 16.9 59.4
 guppie_green #00ff7f 0 255 127 149.9 100 50
-halayà úbe #663854 102 56 84 323.5 29.1 31
+halaya_ube #663854 102 56 84 323.5 29.1 31
+halayà_úbe #663854 102 56 84 323.5 29.1 31
 han_blue #446ccf 68 108 207 222.7 59.1 53.9
 han_purple #5218fa 82 24 250 255.4 95.8 53.7
 hansa_yellow #e9d66b 233 214 107 51 74.1 66.7
@@ -439,7 +442,7 @@ misty_rose #ffe4e1 255 228 225 6 100 94.1
 moccasin #faebd7 250 235 215 34.3 77.8 91.2
 mode_beige #967117 150 113 23 42.5 73.4 33.9
 moonstone_blue #73a9c2 115 169 194 199 39.3 60.6
-mordant_red 19 #ae0c00 174 12 0 4.1 100 34.1
+mordant_red_19 #ae0c00 174 12 0 4.1 100 34.1
 moss_green #addfad 173 223 173 120 43.9 77.6
 mountain_meadow #30ba8f 48 186 143 161.3 59 45.9
 mountbatten_pink #997a8d 153 122 141 323.2 13.2 53.9
