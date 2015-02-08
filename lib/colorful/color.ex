@@ -33,6 +33,7 @@ defmodule Colorful.Color do
   @doc """
   Returns color data as `%Colorful.Color{}`.
   """
+  @spec from_name(String.t | atom) :: %Colorful.Color{}
   def from_name(name)
 
   @names []
@@ -68,6 +69,7 @@ defmodule Colorful.Color do
   @doc """
   Returns a list of all valid color names.
   """
+  @spec names :: [String.t]
   def names, do: @names
 
   @doc false
