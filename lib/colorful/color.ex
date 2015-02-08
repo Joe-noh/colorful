@@ -1,4 +1,18 @@
 defmodule Colorful.Color do
+  @moduledoc """
+  This module provides information on named colors.
+
+      iex> Colorful.Color.from_name "bittersweet"
+      %Colorful.Color{blue: 94, brightness: 68.2, code: "#fe6f5e", green: 111,
+      hue: 6.4, name: "bittersweet", red: 254, saturation: 98.8}
+
+      iex> Colorful.Color.from_name :bittersweet
+      %Colorful.Color{blue: 94, brightness: 68.2, code: "#fe6f5e", green: 111,
+      hue: 6.4, name: "bittersweet", red: 254, saturation: 98.8}
+
+  You can see all valid names using `Colorful.Color.names/0`.
+  """
+
   defmodule UndefinedColorException do
     defexception [:message]
 
@@ -15,6 +29,12 @@ defmodule Colorful.Color do
     [__DIR__, ~w(.. .. priv colors.txt)]
     |> List.flatten
     |> Path.join
+
+  @doc """
+  Returns color data as `%Colorful.Color{}`.
+  """
+  @spec from_name(String.t | atom) :: %Colorful.Color{}
+  def from_name(name)
 
   @names []
   for line <- File.stream!(colors_txt) do
@@ -46,8 +66,11 @@ defmodule Colorful.Color do
   end
 
   @names Enum.sort(@names)
+  @doc """
+  Returns a list of all valid color names.
+  """
+  @spec names :: [String.t]
   def names, do: @names
-
 
   @doc false
   defp to_float(str) do
