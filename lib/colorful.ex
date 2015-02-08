@@ -153,7 +153,7 @@ defmodule Colorful do
 
   defp to_ansi_code(decorators) when is_list(decorators) do
     decorators
-    |> Enum.map(& io_ansi(&1))
+    |> Enum.map(&io_ansi/1)
     |> Enum.join
   end
 
@@ -166,10 +166,12 @@ defmodule Colorful do
           "Expected a binary, an atom or a list. But got #{Kernel.inspect decorator}"
   end
 
-  defp io_ansi(fn_name) when is_atom(fn_name) or is_binary(fn_name) do
-    "IO.ANSI.#{fn_name}"
-    |> Code.eval_string
-    |> elem(0)
+  defp io_ansi(fn_name) when is_atom(fn_name) do
+    apply(IO.ANSI, fn_name, [])
+  end
+
+  defp io_ansi(fn_name) when is_binary(fn_name) do
+    fn_name |> String.to_atom |> io_ansi
   end
 
   defp io_ansi({r, g, b}) when r in 0..5 and g in 0..5 and b in 0..5 do
